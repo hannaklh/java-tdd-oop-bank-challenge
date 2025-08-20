@@ -7,8 +7,8 @@ public class SavingsAccount extends Account{
         super(customer, id);
     }
 
-    public SavingsAccount(Customer customer, int id, double balance) {
-        super(customer, id, balance);
+    public SavingsAccount(Customer customer, int id,Branch branch) {
+        super(customer, id, branch);
     }
 
     public SavingsAccount() {

@@ -9,18 +9,19 @@ public abstract class Account {
     private Customer customer;
     private int id;
     private List<Transaction> transactions;
-    private double balance = 0;
     private int transactionCount = 1;
+    private boolean canBeOverdrafted = false;
+    private Branch branch;
 
     public Account(Customer customer, int id) {
         this.customer = customer;
         this.id = id;
         this.transactions = new ArrayList<>();
     }
-    public Account(Customer customer, int id, double balance) {
+    public Account(Customer customer, int id, Branch branch) {
         this.customer = customer;
         this.id = id;
-        this.balance = balance;
+        this.branch = branch;
         this.transactions = new ArrayList<>();
     }
     public Account () {}
@@ -49,25 +50,17 @@ public abstract class Account {
         this.transactions = transactions;
     }
 
-    public double getBalance() {
-        return balance;
-    }
-
-    public void setBalance(double balance) {
-        this.balance = balance;
-    }
-
     public String deposit(double transAmount){
         Transaction trans = new Transaction(this.transactionCount, LocalDate.now(), transAmount, "debit", this);
-
+/*
         this.balance +=transAmount;
         trans.setBalance(this.balance);
         this.transactionCount++;
-        this.transactions.add(trans);
+        this.transactions.add(trans);*/
         return transAmount + " has been deposited to your account " + this.id;
     }
     public String withdraw(double transAmount){
-        if (this.balance>transAmount) {
+        /*if (this.balance>transAmount) {
             Transaction trans = new Transaction(this.transactionCount, LocalDate.now(), transAmount, "credit",this);
 
             this.balance -=transAmount;
@@ -75,8 +68,8 @@ public abstract class Account {
             this.transactionCount++;
             this.transactions.add(trans);
             return transAmount + " has been withdrawn from your account " + this.id;
-        } else
-            return "There are not enough funds on your account. Current balance: " +this.balance;
+        } else*/
+            return "There are not enough funds on your account. Current balance: " +this;
     }
     public String generateBankStatements() {
 
@@ -91,5 +84,11 @@ public abstract class Account {
 
         }
         return returnString;
+    }
+    public boolean requestOverdraft() {
+        return false;
+    }
+    public double calculateBalance() {
+        return 0;
     }
 }
