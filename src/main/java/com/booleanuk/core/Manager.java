@@ -10,7 +10,10 @@ public class Manager extends User {
 
     public Manager() {
     }
-    public boolean decideOnOverdraft(Customer c, Account a) {
-        return false;
+    public boolean decideOnOverdraft(Account a) {
+        if (a.getTransactions().size()>3) {
+            return true;
+        } else
+            return false;
     }
 }

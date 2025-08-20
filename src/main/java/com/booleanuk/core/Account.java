@@ -51,44 +51,48 @@ public abstract class Account {
     }
 
     public String deposit(double transAmount){
-        Transaction trans = new Transaction(this.transactionCount, LocalDate.now(), transAmount, "debit", this);
-/*
-        this.balance +=transAmount;
-        trans.setBalance(this.balance);
+        Transaction trans = new Transaction(this.transactionCount, LocalDate.now(), transAmount, this);
+
         this.transactionCount++;
-        this.transactions.add(trans);*/
+        this.transactions.add(trans);
         return transAmount + " has been deposited to your account " + this.id;
     }
     public String withdraw(double transAmount){
-        /*if (this.balance>transAmount) {
-            Transaction trans = new Transaction(this.transactionCount, LocalDate.now(), transAmount, "credit",this);
 
-            this.balance -=transAmount;
-            trans.setBalance(this.balance);
+        if (calculateBalance()>=transAmount || canBeOverdrafted) {
+            Transaction trans = new Transaction(this.transactionCount, LocalDate.now(), -transAmount,this);
             this.transactionCount++;
             this.transactions.add(trans);
             return transAmount + " has been withdrawn from your account " + this.id;
-        } else*/
-            return "There are not enough funds on your account. Current balance: " +this;
+
+        } else
+            return "There are not enough funds on your account.";
     }
     public String generateBankStatements() {
 
         String returnString = "date\t\t||\tcredit\t||\tdebit\t||\tbalance\n";
+        double currentBalance = 0;
 
         for (Transaction trans : transactions) {
-            if (trans.getType().equals("credit")) {
-                returnString += trans.getDate().toString() + "\t||\t" + trans.getTransAmount()+"\t\t||\t\t||\t"+trans.getBalance()+"\n";
+             currentBalance += trans.getTransAmount();
+            if (trans.getTransAmount() <0) {
+                returnString += trans.getDate().toString() + "\t||\t" + (trans.getTransAmount()*-1)+"\t\t||\t\t||\t"+currentBalance+"\n";
             } else
-                returnString += trans.getDate().toString() + "\t||\t\t\t||\t" + trans.getTransAmount()+"\t||\t"+trans.getBalance()+"\n";
+                returnString += trans.getDate().toString() + "\t||\t\t\t||\t" + trans.getTransAmount()+"\t||\t"+currentBalance+"\n";
 
 
         }
         return returnString;
     }
     public boolean requestOverdraft() {
-        return false;
+        this.canBeOverdrafted = branch.getManager().decideOnOverdraft(this);
+        return this.canBeOverdrafted;
     }
     public double calculateBalance() {
-        return 0;
+        double totalBalance = 0;
+        for (Transaction trans : transactions){
+            totalBalance += trans.getTransAmount();
+        }
+        return totalBalance;
     }
 }

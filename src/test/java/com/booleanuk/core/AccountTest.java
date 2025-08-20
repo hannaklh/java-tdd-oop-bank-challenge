@@ -33,7 +33,7 @@ public class AccountTest {
 
         branch.setManager(manager);
         branch.setName("Scranton");
-
+        savings.deposit(1000);
         double amount = 1000;
 
         Assertions.assertEquals(amount +" has been withdrawn from your account "+ savings.getId() , savings.withdraw(amount));
@@ -41,9 +41,9 @@ public class AccountTest {
         savings.deposit(1000);
         savings.deposit(7000);
         savings.deposit(12);
-        boolean overdraft = savings.requestOverdraft();
+        savings.requestOverdraft();
 
-        Assertions.assertEquals(amount +" has been withdrawn from your account "+ savings.getId() , savings.withdraw(1300000));
+        Assertions.assertEquals(1300000.0 +" has been withdrawn from your account "+ savings.getId() , savings.withdraw(1300000));
 
 
     }
@@ -60,7 +60,7 @@ public class AccountTest {
 
         double amount = 11000;
 
-        Assertions.assertEquals("There are not enough funds on your account. Current balance: "+savings.calculateBalance() , savings.withdraw(amount));
+        Assertions.assertEquals("There are not enough funds on your account.", savings.withdraw(amount));
     }
     @Test
     public void shouldGenerateBankStatements() {
@@ -72,7 +72,7 @@ public class AccountTest {
         double amount = 1000;
         savings.deposit(amount);
         savings.withdraw(amount);
-        String string = "date\t\t||\tcredit\t||\tdebit\t||\tbalance\n2025-08-20\t||\t\t\t||\t100.0\t||\t1100.0\n2025-08-20\t||\t100.0\t\t||\t\t||\t1000.0\n";
+        String string = "date\t\t||\tcredit\t||\tdebit\t||\tbalance\n2025-08-20\t||\t\t\t||\t1000.0\t||\t1000.0\n2025-08-20\t||\t1000.0\t\t||\t\t||\t0.0\n";
 
        Assertions.assertEquals(string, savings.generateBankStatements());
     }
@@ -85,8 +85,10 @@ public class AccountTest {
 
         double amount = 100.0;
         savings.deposit(amount);
+        savings.deposit(amount);
+        savings.deposit(amount);
         savings.withdraw(amount);
-        Assertions.assertEquals(1100.0, savings.calculateBalance());
+        Assertions.assertEquals(200.0, savings.calculateBalance());
     }
 
 

@@ -7,15 +7,12 @@ public class Transaction {
     private int id;
     private LocalDate date;
     private double transAmount;
-    private String type;
-    private double balance;
     private Account account;
 
-    public Transaction(int id, LocalDate date, double transAmount, String type, Account account) {
+    public Transaction(int id, LocalDate date, double transAmount, Account account) {
         this.id = id;
         this.date = date;
         this.transAmount = transAmount;
-        this.type = type;
         this.account = account;
     }
     public Transaction() {}
@@ -43,23 +40,6 @@ public class Transaction {
     public void setTransAmount(double transAmount) {
         this.transAmount = transAmount;
     }
-
-    public String getType() {
-        return type;
-    }
-
-    public void setType(String type) {
-        this.type = type;
-    }
-
-    public double getBalance() {
-        return balance;
-    }
-
-    public void setBalance(double balance) {
-        this.balance = balance;
-    }
-
     public Account getAccount() {
         return account;
     }
