@@ -1,0 +1,15 @@
+package com.booleanuk.core;
+
+import java.math.BigDecimal;
+
+public class CurrentAccount extends Account{
+    public CurrentAccount(Customer customer, int id) {
+        super(customer, id);
+    }
+
+    public CurrentAccount(Customer customer, int id, BigDecimal balance) {
+        super(customer, id, balance);
+    }
+    public CurrentAccount() {
+    }
+}
