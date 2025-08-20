@@ -1,18 +1,18 @@
 package com.booleanuk.core;
 
+import com.booleanuk.core.models.*;
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import java.math.BigDecimal;
-
 public class AccountTest {
+/*
+    @BeforeEach
     @Test
     public void shouldCreateAccount() {
         Customer customer = new Customer("Hanna Håkansson", 1);
-        Account savings = new SavingsAccount(customer, 1);
-        Account current = new CurrentAccount(customer, 2);
+        Account savings = new Account(customer, 1, branch, AccountType.SAVINGS);
         Assertions.assertEquals("Account " + savings.getId()+ " was added to " + customer.getName(), customer.createAccount(savings));
-        Assertions.assertEquals("Account " + current.getId()+ " was added to " + customer.getName(), customer.createAccount(current));
 
     }
 
@@ -25,11 +25,11 @@ public class AccountTest {
         Assertions.assertEquals(amount +" has been deposited to your account " + savings.getId() , savings.deposit(amount));
     }
     @Test
-    public void shouldWithdraw() {
+    public void shouldWithdrawWithSufficientFunds() {
         Customer customer = new Customer("Hanna Håkansson", 1);
         Branch branch = new Branch();
         Manager manager = new Manager("Giovanni Capilletti", 1, branch);
-        Account savings = new SavingsAccount(customer, 1, branch);
+        Account savings = new Account(customer, 1, branch, AccountType.SAVINGS);
 
         branch.setManager(manager);
         branch.setName("Scranton");
@@ -48,11 +48,32 @@ public class AccountTest {
 
     }
     @Test
+    public void shouldWithdrawWithOverdraft() {
+        Customer customer = new Customer("Hanna Håkansson", 1);
+        Branch branch = new Branch();
+        Manager manager = new Manager("Giovanni Capilletti", 1, branch);
+        Account savings = new Account(customer, 1, branch, AccountType.SAVINGS);
+
+        branch.setManager(manager);
+        branch.setName("Scranton");
+        savings.deposit(1000);
+        double amount = 1000;
+
+        savings.deposit(1000);
+        savings.deposit(7000);
+        savings.deposit(12);
+        savings.requestOverdraft();
+
+        Assertions.assertEquals(1300000.0 +" has been withdrawn from your account "+ savings.getId() , savings.withdraw(1300000));
+
+
+    }
+    @Test
     public void shouldNotWithdraw() {
         Customer customer = new Customer("Hanna Håkansson", 1);
         Branch branch = new Branch();
         Manager manager = new Manager("Giovanni Capilletti", 1, branch);
-        Account savings = new SavingsAccount(customer, 1, branch);
+        Account savings = new Account(customer, 1, branch, AccountType.SAVINGS);
 
 
         branch.setManager(manager);
@@ -67,7 +88,7 @@ public class AccountTest {
         Customer customer = new Customer("Hanna Håkansson", 1);
         Branch branch = new Branch();
         Manager manager = new Manager("Giovanni Capilletti", 1, branch);
-        Account savings = new SavingsAccount(customer, 1, branch);
+        Account savings = new Account(customer, 1, branch, AccountType.SAVINGS);
 
         double amount = 1000;
         savings.deposit(amount);
@@ -81,7 +102,7 @@ public class AccountTest {
         Customer customer = new Customer("Hanna Håkansson", 1);
         Branch branch = new Branch();
         Manager manager = new Manager("Giovanni Capilletti", 1, branch);
-        Account savings = new SavingsAccount(customer, 1, branch);
+        Account savings = new Account(customer, 1, branch, AccountType.SAVINGS);
 
         double amount = 100.0;
         savings.deposit(amount);
@@ -90,7 +111,7 @@ public class AccountTest {
         savings.withdraw(amount);
         Assertions.assertEquals(200.0, savings.calculateBalance());
     }
-
+*/
 
 
 

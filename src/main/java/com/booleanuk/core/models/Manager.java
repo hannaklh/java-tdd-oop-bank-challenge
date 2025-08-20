@@ -1,4 +1,4 @@
-package com.booleanuk.core;
+package com.booleanuk.core.models;
 
 public class Manager extends User {
     private Branch branch;

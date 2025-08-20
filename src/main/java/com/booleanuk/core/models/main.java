@@ -1,4 +1,4 @@
-package com.booleanuk.core;
+package com.booleanuk.core.models;
 
 public class main {
     public static void main(String[] args) {

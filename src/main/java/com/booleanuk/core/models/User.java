@@ -1,7 +1,4 @@
-package com.booleanuk.core;
-
-import java.util.ArrayList;
-import java.util.List;
+package com.booleanuk.core.models;
 
 public abstract class User {
     private String name;

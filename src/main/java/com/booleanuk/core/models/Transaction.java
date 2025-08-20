@@ -1,4 +1,4 @@
-package com.booleanuk.core;
+package com.booleanuk.core.models;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
@@ -6,14 +6,16 @@ import java.time.LocalDate;
 public class Transaction {
     private int id;
     private LocalDate date;
-    private double transAmount;
+    private BigDecimal transAmount;
     private Account account;
+    private TransactionType type;
 
-    public Transaction(int id, LocalDate date, double transAmount, Account account) {
+    public Transaction(int id, LocalDate date, BigDecimal transAmount, Account account, TransactionType transactionType) {
         this.id = id;
         this.date = date;
         this.transAmount = transAmount;
         this.account = account;
+        this.type = transactionType;
     }
     public Transaction() {}
 
@@ -33,11 +35,11 @@ public class Transaction {
         this.date = date;
     }
 
-    public double getTransAmount() {
+    public BigDecimal getTransAmount() {
         return transAmount;
     }
 
-    public void setTransAmount(double transAmount) {
+    public void setTransAmount(BigDecimal transAmount) {
         this.transAmount = transAmount;
     }
     public Account getAccount() {
@@ -46,5 +48,13 @@ public class Transaction {
 
     public void setAccount(Account account) {
         this.account = account;
+    }
+
+    public TransactionType getType() {
+        return type;
+    }
+
+    public void setType(TransactionType type) {
+        this.type = type;
     }
 }
