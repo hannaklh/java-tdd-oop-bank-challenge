@@ -6,17 +6,16 @@ import java.time.LocalDate;
 public class Transaction {
     private int id;
     private LocalDate date;
-    private BigDecimal amount;
+    private double transAmount;
     private String type;
-    private BigDecimal balance;
+    private double balance;
     private Account account;
 
-    public Transaction(int id, LocalDate date, BigDecimal amount, String type, BigDecimal balance, Account account) {
+    public Transaction(int id, LocalDate date, double transAmount, String type, Account account) {
         this.id = id;
         this.date = date;
-        this.amount = amount;
+        this.transAmount = transAmount;
         this.type = type;
-        this.balance = balance;
         this.account = account;
     }
     public Transaction() {}
@@ -29,7 +28,7 @@ public class Transaction {
         this.id = id;
     }
 
-    public LocalDateTime getDate() {
+    public LocalDate getDate() {
         return date;
     }
 
@@ -37,12 +36,12 @@ public class Transaction {
         this.date = date;
     }
 
-    public BigDecimal getAmount() {
-        return amount;
+    public double getTransAmount() {
+        return transAmount;
     }
 
-    public void setAmount(BigDecimal amount) {
-        this.amount = amount;
+    public void setTransAmount(double transAmount) {
+        this.transAmount = transAmount;
     }
 
     public String getType() {
@@ -53,11 +52,11 @@ public class Transaction {
         this.type = type;
     }
 
-    public BigDecimal getBalance() {
+    public double getBalance() {
         return balance;
     }
 
-    public void setBalance(BigDecimal balance) {
+    public void setBalance(double balance) {
         this.balance = balance;
     }
 

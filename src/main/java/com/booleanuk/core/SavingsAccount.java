@@ -7,7 +7,7 @@ public class SavingsAccount extends Account{
         super(customer, id);
     }
 
-    public SavingsAccount(Customer customer, int id, BigDecimal balance) {
+    public SavingsAccount(Customer customer, int id, double balance) {
         super(customer, id, balance);
     }
 

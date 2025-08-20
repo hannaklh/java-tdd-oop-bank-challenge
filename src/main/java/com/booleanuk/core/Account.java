@@ -1,6 +1,7 @@
 package com.booleanuk.core;
 
 import java.math.BigDecimal;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -8,14 +9,15 @@ public abstract class Account {
     private Customer customer;
     private int id;
     private List<Transaction> transactions;
-    private BigDecimal balance = new BigDecimal(0);
+    private double balance = 0;
+    private int transactionCount = 1;
 
     public Account(Customer customer, int id) {
         this.customer = customer;
         this.id = id;
         this.transactions = new ArrayList<>();
     }
-    public Account(Customer customer, int id, BigDecimal balance) {
+    public Account(Customer customer, int id, double balance) {
         this.customer = customer;
         this.id = id;
         this.balance = balance;
@@ -47,21 +49,47 @@ public abstract class Account {
         this.transactions = transactions;
     }
 
-    public BigDecimal getBalance() {
+    public double getBalance() {
         return balance;
     }
 
-    public void setBalance(BigDecimal balance) {
+    public void setBalance(double balance) {
         this.balance = balance;
     }
 
-    public String deposit(BigDecimal amount){
-        return "";
+    public String deposit(double transAmount){
+        Transaction trans = new Transaction(this.transactionCount, LocalDate.now(), transAmount, "debit", this);
+
+        this.balance +=transAmount;
+        trans.setBalance(this.balance);
+        this.transactionCount++;
+        this.transactions.add(trans);
+        return transAmount + " has been deposited to your account " + this.id;
     }
-    public String withdraw(BigDecimal amount){
-        return "";
+    public String withdraw(double transAmount){
+        if (this.balance>transAmount) {
+            Transaction trans = new Transaction(this.transactionCount, LocalDate.now(), transAmount, "credit",this);
+
+            this.balance -=transAmount;
+            trans.setBalance(this.balance);
+            this.transactionCount++;
+            this.transactions.add(trans);
+            return transAmount + " has been withdrawn from your account " + this.id;
+        } else
+            return "There are not enough funds on your account. Current balance: " +this.balance;
     }
     public String generateBankStatements() {
-        return "";
+
+        String returnString = "date\t\t||\tcredit\t||\tdebit\t||\tbalance\n";
+
+        for (Transaction trans : transactions) {
+            if (trans.getType().equals("credit")) {
+                returnString += trans.getDate().toString() + "\t||\t" + trans.getTransAmount()+"\t\t||\t\t||\t"+trans.getBalance()+"\n";
+            } else
+                returnString += trans.getDate().toString() + "\t||\t\t\t||\t" + trans.getTransAmount()+"\t||\t"+trans.getBalance()+"\n";
+
+
+        }
+        return returnString;
     }
 }

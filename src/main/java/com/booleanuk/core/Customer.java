@@ -31,6 +31,7 @@ public class Customer {
         this.name = name;
     }
     public String createAccount( Account account) {
-        return "";
+        this.accounts.add(account);
+        return "Account "+account.getId()+" was added to " +this.name;
     }
 }

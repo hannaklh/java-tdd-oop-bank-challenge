@@ -7,7 +7,7 @@ public class CurrentAccount extends Account{
         super(customer, id);
     }
 
-    public CurrentAccount(Customer customer, int id, BigDecimal balance) {
+    public CurrentAccount(Customer customer, int id, double balance) {
         super(customer, id, balance);
     }
     public CurrentAccount() {
